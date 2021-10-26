@@ -4,12 +4,14 @@
 
 package frc.robot;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
-public final class Constants {}
+public final class Constants {
+  public static final kSparkMax {
+    public static final int MOTOR_ID = 4;
+    public static final CANSparkMaxLowLevel.MotorType MOTOR_TYPE =
+                                      CANSparkMaxLowLevel.MotorType.kBrushless;
+    public static final int CURRENT_LIMIT = 35;
+    public static final int OPEN_LOOP_RAMP_RATE = 0;
+    public static final boolean INVERTED = true;
+    public static final float SPEED = 0.5;
+  }
+}
