@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.SparkMaxMotor;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SparkMaxAuto extends CommandBase {
@@ -21,7 +21,7 @@ public class SparkMaxAuto extends CommandBase {
   public void initialize() {}
 
   @Override
-  public void execute() { m_subsystem.start(); }
+  public void execute() { motor.start(); }
 
   @Override
   public void end(boolean interrupted) {}

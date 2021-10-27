@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 
@@ -22,9 +23,16 @@ public class SparkMaxMotor extends SubsystemBase {
     motor.burnFlash();
   }
 
+  public void start() { run(Constants.kSparkMax.SPEED);}
+  public void stop() { run(0); }
 
-  public void start() {
-    motor.set(Constants.kSparkMax.SPEED);
+  public void reverse() { run(-Constants.kSparkMax.SPEED); }
+
+  public void run(double speed) {
+    // Cant throw exceptions? Please help
+    if (speed > 1 || speed < -1)
+      return;
+    motor.set(speed);
   }
 
   @Override

@@ -4,14 +4,16 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMaxLowLevel;
+
 public final class Constants {
-  public static final kSparkMax {
+  public static final class kSparkMax {
     public static final int MOTOR_ID = 4;
     public static final CANSparkMaxLowLevel.MotorType MOTOR_TYPE =
                                       CANSparkMaxLowLevel.MotorType.kBrushless;
     public static final int CURRENT_LIMIT = 35;
     public static final int OPEN_LOOP_RAMP_RATE = 0;
     public static final boolean INVERTED = true;
-    public static final float SPEED = 0.5;
+    public static final double SPEED = 0.5;
   }
 }
