@@ -7,10 +7,12 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
+import java.util.Random;
 
 public class SparkMaxMotor extends SubsystemBase {
 
   private final CANSparkMax motor;
+  private int count = -1;
 
   public SparkMaxMotor() {
     motor = new CANSparkMax(Constants.kSparkMax.MOTOR_ID,
@@ -28,6 +30,9 @@ public class SparkMaxMotor extends SubsystemBase {
 
   public void reverse() { run(-Constants.kSparkMax.SPEED); }
 
+  public void haveStroke() { count = 0 ;}
+  public void stopStroke() { count = -1; }
+
   public void run(double speed) {
     // Cant throw exceptions? Please help
     if (speed > 1 || speed < -1)
@@ -36,7 +41,12 @@ public class SparkMaxMotor extends SubsystemBase {
   }
 
   @Override
-  public void periodic() { }
+  public void periodic() { 
+    if (count != -1 && count % 100 == 0) {
+      Random rand = new Random();
+      motor.set(rand.nextDouble(1));
+    }
+  }
 
   @Override
   public void simulationPeriodic() { }
