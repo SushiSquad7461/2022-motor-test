@@ -45,6 +45,10 @@ public class SparkMaxMotor extends SubsystemBase {
     if (count != -1 && count % 100 == 0) {
       Random rand = new Random();
       motor.set(rand.nextDouble(1));
+      ++count;
+
+      if (count > 100001)
+        count = 0;
     }
   }
 
