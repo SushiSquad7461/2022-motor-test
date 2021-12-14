@@ -10,8 +10,10 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -25,7 +27,7 @@ public class falcon extends SubsystemBase {
         testFalcon = new TalonFX(Constants.kFalcon.MOTOR_ID);
         
         //config
-        testFalcon.setInverted(Constants.kFalcon.CLOCKWISE);
+        testFalcon.setInverted(Constants.kFalcon.COUNTERCLOCKWISE);
         testFalcon.configSupplyCurrentLimit(Constants.kFalcon.CURRENT_LIMIT);
         testFalcon.configVoltageCompSaturation(12, 100);
         testFalcon.enableVoltageCompensation(true);
@@ -42,12 +44,19 @@ public class falcon extends SubsystemBase {
     }
 
     public void setMotor(double goal) {
-        testFalcon.set(ControlMode.Position, goal, DemandType.ArbitraryFeedForward, fForward.calculate(goal));
+        testFalcon.set(ControlMode.Velocity, goal, DemandType.Neutral, fForward.calculate(goal));
+    }
+
+    public void runMotor(double value) {
+        testFalcon.set(ControlMode.PercentOutput, value);
     }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        SmartDashboard.putNumber("motor output", testFalcon.getMotorOutputPercent());
+        SmartDashboard.putNumber("motor position", testFalcon.getSelectedSensorPosition());
+        SmartDashboard.putNumber("motor velocity", testFalcon.getSelectedSensorVelocity());
     }
 
     @Override
