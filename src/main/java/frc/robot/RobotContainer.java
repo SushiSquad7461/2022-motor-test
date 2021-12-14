@@ -6,8 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.SparkMaxAuto;
-import frc.robot.subsystems.SparkMaxMotor;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -18,8 +16,6 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final SparkMaxMotor motor = new SparkMaxMotor();
-  private final SparkMaxAuto m_autoCommand = new SparkMaxAuto(motor);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -42,6 +38,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }
