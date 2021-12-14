@@ -31,6 +31,11 @@ public class falcon extends SubsystemBase {
         testFalcon.enableVoltageCompensation(true);
         testFalcon.configClosedloopRamp(0.2);
         testFalcon.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
+
+        //config PID
+        testFalcon.config_kP(0, Constants.kFalcon.kP, 100);
+        testFalcon.config_kI(0, Constants.kFalcon.kI, 100);
+        testFalcon.config_kD(0, Constants.kFalcon.kD, 100);
         
         // falconController = new PIDController(Constants.kFalcon.kP, Constants.kFalcon.kI, Constants.kFalcon.kD);
         fForward = new SimpleMotorFeedforward(Constants.kFalcon.kS, Constants.kFalcon.kV);

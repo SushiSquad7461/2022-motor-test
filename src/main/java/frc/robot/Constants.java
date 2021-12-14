@@ -20,7 +20,7 @@ public final class Constants {
     public static final double SPEED = 0.5;
 
     // PID Constants
-    public static final double kP = 0.0;
+    public static final double kP = 0.01;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
