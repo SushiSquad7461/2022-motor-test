@@ -44,7 +44,7 @@ public class falcon extends SubsystemBase {
     }
 
     public void setMotor(double goal) {
-        testFalcon.set(ControlMode.Velocity, goal, DemandType.Neutral, fForward.calculate(goal));
+        testFalcon.set(ControlMode.Position, goal, DemandType.Neutral, fForward.calculate(goal));
     }
 
     public void runMotor(double value) {
