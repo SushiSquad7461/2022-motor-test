@@ -14,13 +14,14 @@ import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class falcon extends SubsystemBase {
     TalonFX testFalcon;
-    /*
-    PIDController falconController; */
+    
+    PIDController falconController;
     SimpleMotorFeedforward fForward;
     /** Creates a new ExampleSubsystem. */
     public falcon() {
@@ -35,20 +36,41 @@ public class falcon extends SubsystemBase {
         testFalcon.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 100);
 
         //config PID
-        testFalcon.config_kP(0, Constants.kFalcon.kP, 100);
-        testFalcon.config_kI(0, Constants.kFalcon.kI, 100);
-        testFalcon.config_kD(0, Constants.kFalcon.kD, 100);
+        testFalcon.config_kP(0, Constants.kFalcon.integratedkP, 100);
+        testFalcon.config_kI(0, Constants.kFalcon.integratedkI, 100);
+        testFalcon.config_kD(0, Constants.kFalcon.integratedkD, 100);
         
-        // falconController = new PIDController(Constants.kFalcon.kP, Constants.kFalcon.kI, Constants.kFalcon.kD);
+        falconController = new PIDController(Constants.kFalcon.kP, Constants.kFalcon.kI, Constants.kFalcon.kD);
         fForward = new SimpleMotorFeedforward(Constants.kFalcon.kS, Constants.kFalcon.kV);
+
+        falconController.setSetpoint(testFalcon.getSelectedSensorPosition());
     }
 
     public void setMotor(double goal) {
+        SmartDashboard.putNumber("integrated goal", goal);
         testFalcon.set(ControlMode.Position, goal, DemandType.Neutral, fForward.calculate(goal));
     }
 
     public void runMotor(double value) {
         testFalcon.set(ControlMode.PercentOutput, value);
+    }
+
+    public void useOutput(double output, double setpoint) {
+        double feedForward = fForward.calculate(setpoint);
+        double input;
+        if(feedForward + output > 0.1) {
+            input = 0.1;
+        } else if(feedForward + output < -0.1) {
+            input = -0.1;
+        } else {
+            input = feedForward + output;
+        }
+        testFalcon.set(ControlMode.PercentOutput, feedForward + output);
+        SmartDashboard.putNumber("pid output", input);
+    }
+
+    public void setGoal(double goal) {
+        falconController.setSetpoint(goal);
     }
 
     @Override
@@ -57,6 +79,12 @@ public class falcon extends SubsystemBase {
         SmartDashboard.putNumber("motor output", testFalcon.getMotorOutputPercent());
         SmartDashboard.putNumber("motor position", testFalcon.getSelectedSensorPosition());
         SmartDashboard.putNumber("motor velocity", testFalcon.getSelectedSensorVelocity());
+        //SmartDashboard.putNumber("controller setpoint", falconController.getSetpoint());
+
+        // pid output
+        /*
+        double output = falconController.calculate(testFalcon.getSelectedSensorPosition());
+        useOutput(output, falconController.getSetpoint()); */
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.revrobotics.CANSparkMaxLowLevel;
 
 public final class Constants {
   public static final class kFalcon {
-    public static final int MOTOR_ID = 15;
+    public static final int MOTOR_ID = 0;
     // public static final CANSparkMaxLowLevel.MotorType MOTOR_TYPE =
     //                                   CANSparkMaxLowLevel.MotorType.kBrushless;
     //public static final int CURRENT_LIMIT = 35;
@@ -20,9 +20,14 @@ public final class Constants {
     public static final double SPEED = 0.5;
 
     // PID Constants
-    public static final double kP = 0.01;
+    public static final double kP = 0.000142;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
+
+    // integrated constants
+    public static final double integratedkP = 0.01;
+    public static final double integratedkI = 0.0;
+    public static final double integratedkD = 0.0;
 
     // FF Constants
     public static final double kS = 0.0;
