@@ -40,10 +40,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(testController, XboxController.Button.kA.value)
-      .whenPressed(new RunCommand(() -> testFalcon.setMotor(1024), testFalcon));
+      .whenPressed(new RunCommand(() -> testFalcon.setMotor(-2000), testFalcon));
     
     new JoystickButton(testController, XboxController.Button.kY.value)
-      .whenPressed(new RunCommand(() -> testFalcon.setMotor(3000), testFalcon));
+      .whenPressed(new RunCommand(() -> testFalcon.setMotor(1000), testFalcon));
 
     new JoystickButton(testController, XboxController.Button.kB.value)
      .whenPressed(new RunCommand(() -> testFalcon.setMotor(0), testFalcon));
